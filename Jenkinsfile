@@ -13,7 +13,6 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'cd cucumber-archetype'
                 sh 'pwd'
                 sh 'mvn clean install'
             }

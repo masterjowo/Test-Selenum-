@@ -9,67 +9,23 @@ pipeline {
         BRANCH_NAME = 'main'
     }
 
-    stages {
-        stage('Continuous_Checkout') {
+        stages {
+
+        stage('Build') {
             steps {
-                // Checkout kode dari repositori
-                git branch: "${env.BRANCH_NAME}", url: 'https://github.com/masterjowo/Test-Selenum-.git'
-                sh 'pwd'
-                sh 'cd cucumber-archetype'
                 sh 'mvn clean install'
             }
         }
-        stage('Continuous_Test_Browser_Edge ') {
-            steps {
-                        //sh 'mvn test'/
-                        echo 'Running tests on edge...'
-                        // sh 'mvn test -PTestng  -Dbrowser=edge'
-                        sh 'mvn test -PTestng -Dbrowser=chrome -Dheadless=true'
-                    }
-        }
-        stage('Continuous_Test_Browser_Chrome ') {
-            steps {
 
-                        sh 'mvn test -PTestng -Dbrowser=chrome -Dheadless=true'
-                        echo 'Running tests on Chrome...'
-
-                    }
-
-        }
-
-        stage('Continuous_Build') {
+        stage('Test - Chrome') {
             steps {
-                script {
-                    // dir('/Hasil_Test_Web_UI_Mengunakan_Testng_Dan_Cucumber_Versi_Final/target/cucumber-report') {
-                    //     sh 'docker compose build'
-                    // }
-                    // sh'''
-                    //     cd target/cucumber-report
-                    //     cat report.js
-                    //     cat formatter.js
-                    //     cat index.html
-                    //     cat jquery-3.4.1.min.js
-                    // '''
-                    echo 'test '
-                    // sh'docker compose build'
-                    
-                }
-            }
-        } 
-        
-        stage('Continuous_Deploy_report_html') {
-            steps {
-                script {
-                echo 'test '
-                }
+                sh 'mvn test -PTestng -Dbrowser=chrome -Dheadless=true'
             }
         }
 
-        stage('Continuous_Cleanup') {
+        stage('Cleanup') {
             steps {
-                echo 'Cleaning up the environment...'
-                sh 'mvn clean install' 
-                // Membersihkan file sementara atau proses lain yang tidak dibutuhkan
+                sh 'mvn clean'
             }
         }
     }

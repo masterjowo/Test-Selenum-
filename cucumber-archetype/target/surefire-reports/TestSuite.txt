@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: TestSuite
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 3.783 s <<< FAILURE! -- in TestSuite
+runners.TestRunner.runScenario["Sebagai pengguna saya dapat login dengan benar (positive case)", "fungsi login"](1) -- Time elapsed: 2.142 s <<< FAILURE!
+java.lang.NullPointerException: Cannot invoke "org.openqa.selenium.WebElement.click()" because "this.masuk" is null
+	at cucumber_test.pageobjects.HomePage.masuk(HomePage.java:28)
+	at stepdefenitions.LoginStepDefenition.ketika_user_sudah_berada_pada_halaman_awal_user_dapat_melihat(LoginStepDefenition.java:38)
+	at ✽.Ketika user sudah berada pada halaman awal, user dapat menerapkan tombol Masuk(file:///E:/CV/vocagame/code/cucumber-archetype/src/test/resources/features/Login.feature:7)
+

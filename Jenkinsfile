@@ -15,7 +15,7 @@ pipeline {
             steps {
                 sh 'pwd'
                 sh'docker compose down'
-                 sh'docker rmi hasil_test_web_saucedemo_comv2'
+                // sh'docker rmi hasil_test_web_saucedemo_comv2'
                 sh 'mvn clean install'
             }
         }

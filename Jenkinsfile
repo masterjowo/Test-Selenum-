@@ -14,6 +14,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'pwd'
+                sh'docker compose down'
+                 sh'docker rmi hasil_test_web_saucedemo_comv2'
                 sh 'mvn clean install'
             }
         }
@@ -21,6 +23,16 @@ pipeline {
         stage('Test - Chrome') {
             steps {
                 sh 'mvn test -PTestng -Dbrowser=chrome -Dheadless=true'
+            }
+        }
+        stage('Continuous_Build') {
+            steps {
+                sh'docker compose build'
+            }
+        }
+        stage('Continuous_Deploy_report_html') {
+            steps {
+                sh'docker compose up -d'
             }
         }
 

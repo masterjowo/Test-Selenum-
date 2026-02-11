@@ -16,25 +16,31 @@ public class abstractComponent {
         this.driver = driver;
     }
 
-    @FindBy(css = "[routerlink*='cart']")
-    WebElement cartButton;
+    @FindBy(xpath =  "//a[@class='text-foreground-navbar'][normalize-space()='Beranda']")
+    WebElement homebutton ;
 
-    @FindBy(css="[routerlink='/dashboard/myorders']")
-    WebElement cartOrders;
+    @FindBy(css="//a[normalize-space()='Riwayat Pesanan']")
+    WebElement orderhistory;
 
-    By orderHeader = By.cssSelector("[routerlink='/dashboard/myorders']");
+    @FindBy(css="//a[normalize-space()='Kalkulator MLBB']")
+    WebElement MLBBcalculator;
+
+    @FindBy(css="//a[normalize-space()='Berita']")
+    WebElement news;
+
+
 
     public void waitForVisibilityElement(By findBy){
          WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
          wait.until(ExpectedConditions.visibilityOfElementLocated(findBy));
     }
 
-    public void goToCart(){
-        cartButton.click();
-    }
+    // public void goToCart(){
+    //     cartButton.click();
+    // }
 
-    public void goToOrderPage() throws InterruptedException{
-        waitForVisibilityElement(orderHeader);
-        cartOrders.click();
-    }
+    // public void goToOrderPage() throws InterruptedException{
+    //     waitForVisibilityElement(orderHeader);
+    //     cartOrders.click();
+    // }
 }

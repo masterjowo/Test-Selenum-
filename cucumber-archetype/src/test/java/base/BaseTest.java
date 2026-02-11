@@ -20,6 +20,7 @@ public class BaseTest {
 
     @AfterMethod
     public void teardown() {
+        System.out.println("AFTER METHOD JALAN");
         if (driver != null) {
             driver.quit();
         }

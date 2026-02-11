@@ -49,7 +49,7 @@ public class DriverFactory {
                 throw new IllegalArgumentException("Browser tidak didukung: " + browser);
         }
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(60));
         driver.manage().window().setSize(new Dimension(1440, 832));
 
         return driver;

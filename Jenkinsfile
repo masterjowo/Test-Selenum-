@@ -1,0 +1,126 @@
+pipeline {
+    //agent any  // Menjalankan pipeline pada agen manapun yang tersedia atau node atau vm 
+    // Gunakan agent berdasarkan label yang sesuai di Jenkins node configuration
+    agent { label 'tencent_cloud_vps2_agent1' }
+    environment {
+        // Definisikan variabel lingkungan jika diperlukan
+        // Misalnya untuk kredensial, server, dll.
+        DEPLOY_SERVER = 'your.deploy.server'
+        BRANCH_NAME = 'master'
+    }
+
+
+    // triggers{
+    //     //https://crontab.guru///
+    //     pollSCM('* * * * *')
+    // }
+
+    stages {
+        stage('Continuous_Checkout') {
+            steps {
+                // Checkout kode dari repositori
+                git branch: "${env.BRANCH_NAME}", url: 'https://github.com/masterjowo/Test-Selenum-.git'
+                sh 'pwd'
+                sh 'cd cucumber-archetype'
+                // sh'docker compose down'
+                // sh'docker rmi hasil_test_web_saucedemo_comv1'
+                sh 'mvn clean install'
+            }
+        }
+        stage('Continuous_Test_Browser_Edge ') {
+            steps {
+                        //sh 'mvn test'/
+                        echo 'Running tests on edge...'
+                        // sh 'mvn test -PTestng  -Dbrowser=edge'
+                        // sh 'mvn test -PTestng -Dbrowser=chrome -Dheadless=true'
+                    }
+        }
+        stage('Continuous_Test_Browser_Chrome ') {
+            steps {
+                        //sh 'mvn test'/
+                        sh 'mvn test -PTestng -Dbrowser=chrome -Dheadless=true'
+                        echo 'Running tests on Chrome...'
+                        // sh''' cd target/cucumber-report
+                        //     ls -a 
+                        // '''
+                    }
+            // parallel { // Menjalankan beberapa tahap secara paralel akan mengakibatkan cucumber-report terimpa dan menjadi error pada report.js
+            //     stage('edge'){
+            //         steps {
+            //             echo 'Running tests on edge...'
+            //             sh 'mvn test -PTestng  -Dbrowser=edge'
+                        
+            //         }
+            //     }
+            //     stage('Chrome'){
+            //         steps {
+            //             //sh 'mvn test'/
+            //             sh 'mvn test -PTestng  -Dbrowser=chrome'
+            //             echo 'Running tests on Chrome...'
+            //             sh''' cd target/cucumber-report
+            //                 ls -a 
+            //             '''
+            //         }
+            //     }
+            // }
+        }
+
+        stage('Continuous_Build') {
+            steps {
+                script {
+                    // dir('/Hasil_Test_Web_UI_Mengunakan_Testng_Dan_Cucumber_Versi_Final/target/cucumber-report') {
+                    //     sh 'docker compose build'
+                    // }
+                    // sh'''
+                    //     cd target/cucumber-report
+                    //     cat report.js
+                    //     cat formatter.js
+                    //     cat index.html
+                    //     cat jquery-3.4.1.min.js
+                    // '''
+                    echo 'test '
+                    // sh'docker compose build'
+                    
+                }
+            }
+        } 
+        
+        stage('Continuous_Deploy_report_html') {
+            steps {
+                script {
+                    // sh 'docker compose up -d'
+                    // sh'docker compose up -d'
+                }
+            }
+        }
+
+        stage('Continuous_Cleanup') {
+            steps {
+                echo 'Cleaning up the environment...'
+                sh 'mvn clean install' 
+                // Membersihkan file sementara atau proses lain yang tidak dibutuhkan
+            }
+        }
+    }
+
+    post {
+        success {
+            // Kirim notifikasi ke Discord setelah build
+            discordSend description: "Jenkins Pipeline Build", 
+                        footer: "Pipeline berhasil! Proyek telah dibangun, diuji, dan dideploy.", 
+                        // link: env.BUILD_URL, 
+                        result: currentBuild.currentResult, // or   result: "#3498db",
+                        thumbnail: "https://example.com/thumbnail.png",
+                        webhookURL: "https://discord.com/api/webhooks/1306897325678923816/uIkmBEq4CNJWxNIZ3mzrVjswV4Hn8E90QA_-7iQvQ1GxuWXZmtquU6FeHzFsQdJ5fJ1R"
+        }
+        failure {
+            echo 'Pipeline gagal. Periksa log untuk detail kesalahan.'
+        }
+        always {
+            echo 'Pipeline selesai menjalankan semua tahap.'
+        }
+    }
+
+//https://www.jenkins.io/doc/pipeline/steps/workflow-basic-steps/#pwd-determine-current-directory
+}
+

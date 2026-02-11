@@ -9,12 +9,6 @@ pipeline {
         BRANCH_NAME = 'master'
     }
 
-
-    // triggers{
-    //     //https://crontab.guru///
-    //     pollSCM('* * * * *')
-    // }
-
     stages {
         stage('Continuous_Checkout') {
             steps {
@@ -22,8 +16,6 @@ pipeline {
                 git branch: "${env.BRANCH_NAME}", url: 'https://github.com/masterjowo/Test-Selenum-.git'
                 sh 'pwd'
                 sh 'cd cucumber-archetype'
-                // sh'docker compose down'
-                // sh'docker rmi hasil_test_web_saucedemo_comv1'
                 sh 'mvn clean install'
             }
         }
@@ -32,37 +24,17 @@ pipeline {
                         //sh 'mvn test'/
                         echo 'Running tests on edge...'
                         // sh 'mvn test -PTestng  -Dbrowser=edge'
-                        // sh 'mvn test -PTestng -Dbrowser=chrome -Dheadless=true'
+                        sh 'mvn test -PTestng -Dbrowser=chrome -Dheadless=true'
                     }
         }
         stage('Continuous_Test_Browser_Chrome ') {
             steps {
-                        //sh 'mvn test'/
+
                         sh 'mvn test -PTestng -Dbrowser=chrome -Dheadless=true'
                         echo 'Running tests on Chrome...'
-                        // sh''' cd target/cucumber-report
-                        //     ls -a 
-                        // '''
+
                     }
-            // parallel { // Menjalankan beberapa tahap secara paralel akan mengakibatkan cucumber-report terimpa dan menjadi error pada report.js
-            //     stage('edge'){
-            //         steps {
-            //             echo 'Running tests on edge...'
-            //             sh 'mvn test -PTestng  -Dbrowser=edge'
-                        
-            //         }
-            //     }
-            //     stage('Chrome'){
-            //         steps {
-            //             //sh 'mvn test'/
-            //             sh 'mvn test -PTestng  -Dbrowser=chrome'
-            //             echo 'Running tests on Chrome...'
-            //             sh''' cd target/cucumber-report
-            //                 ls -a 
-            //             '''
-            //         }
-            //     }
-            // }
+
         }
 
         stage('Continuous_Build') {
@@ -88,8 +60,7 @@ pipeline {
         stage('Continuous_Deploy_report_html') {
             steps {
                 script {
-                    // sh 'docker compose up -d'
-                    // sh'docker compose up -d'
+                echo 'test '
                 }
             }
         }

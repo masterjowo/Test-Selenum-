@@ -50,18 +50,22 @@ public void diberikan_user_akses_halaman() {
 public void ketika_user_sudah_berada_pada_halaman_awal_user_dapat_melihat() {
     homePage.masuk();
 }
-@And ("user memasukan nomer {string} dan password {string}")
+@And("user memasukan nomer {string} dan password {string}")
 public void dan_user_memasukan_user_name(String string , String pass) {
     emailORnopage.emailORno(string, pass);
 }
 @And("user menekan tombol masuk")
-public void dan_user_memasukan_password() {
+public void user_menekan_tombol_masuk() {
     // Write code here that turns the phrase above into concrete actions
     emailORnopage.buttonmasuk();
 }
-@Then("user dapat melihat snackbar {string}")
-public void maka_user_dapat_melihat(String string) {
+@Then("user dapat melihat snackbar berhasil login {string}")
+public void user_dapat_melihat_snackbar_berhasil_login(String string) {
     Assert.assertEquals(homePage.Successsnackbar(),string);
+}
+@Then("user dapat melihat snackbar gagal login {string}")
+public void user_dapat_melihat_snackbar_gagal_login (String string) {
+    Assert.assertEquals(emailORnopage.snackbarfail(),string);
 }
 
 }

@@ -22,6 +22,7 @@ public class EmailORnoPage extends abstractComponent {
     @FindBy(xpath = "//input[@id=':Rlmfnj2f9ejsq:-form-item']")WebElement noORemail;
     @FindBy(xpath = "//button[@type='submit']")WebElement masuk;
     @FindBy(xpath = "//input[@id=':r0:-form-item']")WebElement passs;
+    @FindBy(xpath = "//div[text()='Phone Number tidak ditemukan. Harap gunakan data yang valid dan terdaftar']")WebElement datanotvalid;
     
     public void emailORno(String emailORno, String password ){
     noORemail.sendKeys(emailORno);
@@ -29,14 +30,19 @@ public class EmailORnoPage extends abstractComponent {
     passs.sendKeys( password);
     }
 
+
+    public String snackbarfail(){
+        return datanotvalid.getText();
+    }
+
     public void buttonmasuk(){
     masuk.click();
-   try {
-    Thread.sleep(2000);
-} catch (InterruptedException e) {
-    e.printStackTrace();
-}
-    
+    try {
+        Thread.sleep(2000);
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+        
     }
 
 }

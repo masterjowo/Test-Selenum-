@@ -1,5 +1,6 @@
 E:\CV\vocagame\code\cucumber-archetype\src\main\java\cucumber_test\abstractcomponents\abstractComponent.java
+E:\CV\vocagame\code\cucumber-archetype\src\main\java\cucumber_test\pageobjects\OrderPage.java
 E:\CV\vocagame\code\cucumber-archetype\src\main\java\cucumber_test\pageobjects\EmailORnoPage.java
-E:\CV\vocagame\code\cucumber-archetype\src\main\java\cucumber_test\pageobjects\CheckoutCompletePage.java
+E:\CV\vocagame\code\cucumber-archetype\src\main\java\cucumber_test\tools\tools.java
 E:\CV\vocagame\code\cucumber-archetype\src\main\java\cucumber_test\pageobjects\LandingPage.java
 E:\CV\vocagame\code\cucumber-archetype\src\main\java\cucumber_test\pageobjects\HomePage.java
